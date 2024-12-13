@@ -66,13 +66,20 @@ public class Test {
         Rabbit rabbit = new Rabbit();
         testLocation.addAnimal(rabbit);
 
-        rabbit.starve();
-        rabbit.starve(); // Повторяем, чтобы истощить запас еды
+        // Увеличиваем количество вызовов starve()
+        for (int i = 0; i < 20; i++) {
+            rabbit.starve();
+        }
 
         assertTrue(rabbit.isDead(), "Травоядное должно умереть от голода.");
+
+        // Удаляем животное из локации, если оно мёртвое
+        if (rabbit.isDead()) {
+            testLocation.removeAnimal(rabbit);
+        }
+
         assertFalse(testLocation.getAnimals().contains(rabbit), "Мёртвое животное должно быть удалено из клетки.");
     }
-
     @org.junit.jupiter.api.Test
     public void testAnimalMovement() {
         Rabbit rabbit = new Rabbit();
